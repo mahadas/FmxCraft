@@ -12,11 +12,15 @@ client.on ("message", (message) => {
 	if (message.content.startsWith (prefix + "hello")) {
 		message.reply ('Hi');
 	}
-	if (message.content.startsWith (prefix + "estado")) {
-		message.channel.send ("El estado de nuestra ip es:", {file: ["http://status.mclive.eu/FmxCraft/fmxcraft.mcserv.me/25565/banner.png"]});
-	}
+    if (message.content.startsWith (prefix + 'how to embed') {
+		const embed = new RichEmbed()
 
-});
+		.setTitle('A slick little embed')
+		.setColor(0xFF0000)
+		.setDescription('Hello, this is a slick embed!');
+		message.channel.send(embed);
+	};	
+};
 
 
 // THIS  MUST  BE  THIS  WAY
