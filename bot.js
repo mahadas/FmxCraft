@@ -7,9 +7,9 @@ client.on('ready', () => {
 
 client.on('message', message => {
     if (message.content === 'ping') {
-    	message.reply('pong', {file: "http://status.mclive.eu/FmxCraft/fmxcraft.mcserv.me/25565/banner.png"});
+    	message.reply('pong');
   	}
+});
 
 // THIS  MUST  BE  THIS  WAY
 client.login(process.env.BOT_TOKEN);
-
