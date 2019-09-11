@@ -12,7 +12,9 @@ client.on ("message", (message) => {
 	if (message.content.startsWith (prefix + "hello")) {
 		message.reply ('Hi');
 	}
-
+	if (message.content.startsWith (prefix + "estado")) {
+		message.channel.send ("El estado de nuestra ip es:", {file: ["http://status.mclive.eu/FmxCraft/fmxcraft.mcserv.me/25565/banner.png"]});
+	}
 
 });
 
