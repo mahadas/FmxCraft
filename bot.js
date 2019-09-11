@@ -7,7 +7,7 @@ client.on('ready', () => {
     console.log('I am ready!');
 });
 
-var prefix = config.prefix;
+var prefix = ("-");
 
 
 client.on('message', message => {
