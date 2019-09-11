@@ -6,8 +6,8 @@ client.on('ready', () => {
 });
 
 client.on('message', message => {
-    if (message.content === 'ping') {
-    	message.reply('pong');
+    if (message.content === ',ip') {
+    	message.reply({file: ["http://status.mclive.eu/FmxCraft/fmxcraft.mcserv.me/25565/banner.png"]});
   	}
 });
 
