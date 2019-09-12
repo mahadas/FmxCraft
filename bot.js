@@ -9,9 +9,6 @@ var prefix = ("!");
 
 
 client.on('message', message => {
-	if (message.content.startsWith(prefix + "estado")) {
-    message.channel.send("pong!");
-	} else
 	if (message.content.startsWith(prefix + "hola")) {
 	message.channel.send("Hola que tal?");
 	}
