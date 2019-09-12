@@ -18,7 +18,7 @@ client.on('message', message => {
 	if (message.content.startsWith(prefix +"embed")){
     message.channel.send({embed: {
       color: 3447003,
-      description: "Esto es un simple mensaje embed."
+      description: "Esto es un simple mensaje embedholaaaaaaaaaaabdfifdbejeke."
     }});
 }
 });
