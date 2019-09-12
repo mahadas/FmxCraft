@@ -26,7 +26,6 @@ message.channel.send({embed: {
     description: "La ip es: play.fmxcraft.ml",
     timestamp: new Date(),
     footer: {
-      icon_url: client.user.avatarURL,
       text: "© FmxCraft"
     }
   }
