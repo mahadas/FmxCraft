@@ -8,15 +8,23 @@ client.once('ready', () => {
 const prefix = "!"
 
 client.on('message', message => {
-	if (!message.content.startsWith(prefix) || message.author.bot) return;
-
-	const args = message.content.slice(prefix.length).split(/ +/);
-	const command = args.shift().toLowerCase();
-
 	if (command === 'ping') {
 		message.channel.send('Aca tienes tu ping.');
 	} else if (command === 'beep') {
 		message.channel.send('Boop.');
+	}
+	
+	if (command === 'ip') {
+	
+	const ipEmbed = new Discord.RichEmbed()
+	.setColor('#0099ff')
+	.setTitle('FmxCraft BOT')
+	.setURL('https://discord.js.org/')
+	.setThumbnail('https://i.imgur.com/wSTFkRM.png')
+	.addField('Regular field title', 'Some value here')
+	.addBlankField()
+	
+	channel.send(ipEmbed);
 	}
 });
 
