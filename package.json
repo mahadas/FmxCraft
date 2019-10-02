@@ -3,6 +3,9 @@
   "description": "Test",
   "version": "1.0.0",
   "main": "bot.js",
+    "engines": {
+    "node": "10.3.0"
+  },
   "scripts": {
     "start": "node bot.js"
   },
