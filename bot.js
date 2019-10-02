@@ -1,16 +1,25 @@
 const Discord = require('discord.js');
-const client = new Discord.Client();
+const {
+	prefix,
+	token,
+} = require('./config.json');
 const ytdl = require('ytdl-core');
+
+const client = new Discord.Client();
+
 const queue = new Map();
 
 client.once('ready', () => {
-	console.log('El bot ha sido iniciado correctamente.');
+	console.log('Ready!');
 });
 
-const prefix = "!"
+client.once('reconnecting', () => {
+	console.log('Reconnecting!');
+});
 
-
-const serverQueue = queue.get(message.guild.id);
+client.once('disconnect', () => {
+	console.log('Disconnect!');
+});
 
 client.on('message', async message => {
 	if (message.author.bot) return;
