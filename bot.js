@@ -1,8 +1,7 @@
+const Discord = require('discord.js')
+const client = new Discord.Client()
+const prefix = "!"
 
-const Discord = require("discord.js");
-const client = new Discord.Client();
-const token = process.env.token;
-const prefix = "+"
 client.on("ready", () => {
   console.log("consola cargada")
 	client.user.setPresence({
@@ -106,5 +105,4 @@ client.on("message", (message) => {
   
 
    
-  
-client.login(token);
+client.login(process.env.BOT_TOKEN);
