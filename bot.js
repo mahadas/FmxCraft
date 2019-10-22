@@ -1,125 +1,110 @@
-const Discord = require('discord.js');
-const {
-	prefix,
-	token,
-} = require('./config.json');
-const ytdl = require('ytdl-core');
 
+const Discord = require("discord.js");
 const client = new Discord.Client();
-
-const queue = new Map();
-
-client.once('ready', () => {
-	console.log('Ready!');
+const config = require("./config.json");
+const prefix = "+"
+client.on("ready", () => {
+  console.log("consola cargada")
+	client.user.setPresence({
+       status: "online",
+       game: {
+           name: "| play.lightsmc.ml |",
+           type: "STREAMING"
+       }
+   });
 });
 
-client.once('reconnecting', () => {
-	console.log('Reconnecting!');
-});
 
-client.once('disconnect', () => {
-	console.log('Disconnect!');
-});
 
-client.on('message', async message => {
-	if (message.author.bot) return;
-	if (!message.content.startsWith(prefix)) return;
 
-	const serverQueue = queue.get(message.guild.id);
 
-	if (message.content.startsWith(`${prefix}play`)) {
-		execute(message, serverQueue);
-		return;
-	} else if (message.content.startsWith(`${prefix}skip`)) {
-		skip(message, serverQueue);
-		return;
-	} else if (message.content.startsWith(`${prefix}stop`)) {
-		stop(message, serverQueue);
-		return;
-	} else {
-		message.channel.send('You need to enter a valid command!')
-	}
-});
 
-async function execute(message, serverQueue) {
-	const args = message.content.split(' ');
-
-	const voiceChannel = message.member.voiceChannel;
-	if (!voiceChannel) return message.channel.send('You need to be in a voice channel to play music!');
-	const permissions = voiceChannel.permissionsFor(message.client.user);
-	if (!permissions.has('CONNECT') || !permissions.has('SPEAK')) {
-		return message.channel.send('I need the permissions to join and speak in your voice channel!');
-	}
-
-	const songInfo = await ytdl.getInfo(args[1]);
-	const song = {
-		title: songInfo.title,
-		url: songInfo.video_url,
-	};
-
-	if (!serverQueue) {
-		const queueContruct = {
-			textChannel: message.channel,
-			voiceChannel: voiceChannel,
-			connection: null,
-			songs: [],
-			volume: 5,
-			playing: true,
-		};
-
-		queue.set(message.guild.id, queueContruct);
-
-		queueContruct.songs.push(song);
-
-		try {
-			var connection = await voiceChannel.join();
-			queueContruct.connection = connection;
-			play(message.guild, queueContruct.songs[0]);
-		} catch (err) {
-			console.log(err);
-			queue.delete(message.guild.id);
-			return message.channel.send(err);
+client.on("message", (message) => {
+	const args = message.content.slice(prefix.length).trim().split(/ +/g);
+	const command = args.shift().toLowerCase();
+  if (message.content.startsWith(prefix + "encuesta")) {
+    let text = args.join(" ");
+    message.delete();
+    const ayy = client.emojis.find(emoji => emoji.name === "Visto");
+    const ayy1 = client.emojis.find(emoji => emoji.name === "Cross");
+    if (message.channel.id === '621338748994715658') {
+      const embed = new Discord.RichEmbed()
+        .setAuthor('❗ Pregunta: ❗',)
+        .setDescription(text)
+        .addField('▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔', 'Utiliza para votar:')
+        .addField('Opción 1:', `${ayy}`)
+        .addField('Opción 2:', `${ayy1}`)
+        .setColor(2123412)
+        .setTimestamp()
+        .setFooter("IP: play.heavenmc.es", 'https://i.imgur.com/FwiJzpS.png')			
+        message.channel.send({embed})
+        .then(function (message) {
+            message.react(ayy);
+            message.react(ayy1);
+		  	});
 		}
-	} else {
-		serverQueue.songs.push(song);
-		console.log(serverQueue.songs);
-		return message.channel.send(`${song.title} has been added to the queue!`);
-	}
+  }
+  if (command === "eliminar-canal") { 
+      const channelasd = message.channel;
+      const guild = message.guild;
+      const nombrecanal = channelasd.name;
+      let [name] = args; 
+      channelasd.delete('Canal eliminado')
+     .then(deleted => console.log(`El canal ${deleted.name} se elimino correctamente`))
+     const canaldeleteado = new Discord.RichEmbed()
+     .setTitle("Canal Eliminado:", 'https://i.imgur.com/FwiJzpS.png')
+     .addField("Autor:", `${message.author}`)
+     .addField("Canal:", `#${nombrecanal}`)
+     .setColor(10038562)
+     .setThumbnail(message.author.avatarURL)
+     .setFooter("IP: play.heavenmc.es", 'https://i.imgur.com/FwiJzpS.png');
+      client.channels.get('621353649729306634').send(canaldeleteado);
 
-}
+      }
+  if (command === "presente") {
+    if (message.channel.id === '621353649729306634') {
+     message.delete();
+     var ahora = new Date();
+     var minuto = ahora.getUTCMinutes();  
+     var hora = ahora.getUTCHours() + 2;
+     var segundo = ahora.getUTCSeconds();
+     let mes = [`Enero`,`Febrero`,`Marzo`,`Abril`,`Mayo`,`Junio`,`Julio`,`Agosto`,`Septiembre`,`Octubre`,`Noviembre`,`Diciembre`];
+     let suffix = [`st`,`nd`,`rd`];
+     const darpresente = new Discord.RichEmbed()
+     .setTitle("Presente:", 'https://i.imgur.com/FwiJzpS.png')
+     .addField("Staff:", `  ${message.author}`)
+     .addField("Hora:", `  ${hora}h:${minuto}m:${segundo}s - Hora España`)
+     .addField("Dia:", `  ${ahora.getDate()} de ${mes[ahora.getMonth()]} de 2019 `)
+     .setColor(3066993)
+     .setThumbnail(message.author.avatarURL)
+     .setFooter("IP: play.heavenmc.es", 'https://i.imgur.com/FwiJzpS.png');
+     client.channels.get('621353649729306634').send(darpresente);
+      }
+  }   
+  
+  if (command === "ausente") {
+    if (message.channel.id === '621353649729306634') {
+     message.delete();
+     var ahora = new Date();
+     var minuto = ahora.getUTCMinutes();  
+     var hora = ahora.getUTCHours() + 2;
+     var segundo = ahora.getUTCSeconds();
+     let mes = [`Enero`,`Febrero`,`Marzo`,`Abril`,`Mayo`,`Junio`,`Julio`,`Agosto`,`Septiembre`,`Octubre`,`Noviembre`,`Diciembre`];
+     let suffix = [`st`,`nd`,`rd`];
+     const darpresente = new Discord.RichEmbed()
+     .setTitle("Ausente:", 'https://i.imgur.com/FwiJzpS.png')
+     .addField("Staff:", `  ${message.author}`)
+     .addField("Hora:", `  ${hora}h:${minuto}m:${segundo}s - Hora España`)
+     .addField("Dia:", `  ${ahora.getDate()} de ${mes[ahora.getMonth()]} de 2019 `)
+     .setColor(15158332)
+     .setThumbnail(message.author.avatarURL)
+     .setFooter("IP: play.heavenmc.es", 'https://i.imgur.com/FwiJzpS.png');
+     client.channels.get('621353649729306634').send(darpresente);
+      }
+  }   
+});
+  
 
-function skip(message, serverQueue) {
-	if (!message.member.voiceChannel) return message.channel.send('You have to be in a voice channel to stop the music!');
-	if (!serverQueue) return message.channel.send('There is no song that I could skip!');
-	serverQueue.connection.dispatcher.end();
-}
-
-function stop(message, serverQueue) {
-	if (!message.member.voiceChannel) return message.channel.send('You have to be in a voice channel to stop the music!');
-	serverQueue.songs = [];
-	serverQueue.connection.dispatcher.end();
-}
-
-function play(guild, song) {
-	const serverQueue = queue.get(guild.id);
-
-	if (!song) {
-		serverQueue.voiceChannel.leave();
-		queue.delete(guild.id);
-		return;
-	}
-
-	const dispatcher = serverQueue.connection.playStream(ytdl(song.url))
-		.on('end', () => {
-			console.log('Music ended!');
-			serverQueue.songs.shift();
-			play(guild, serverQueue.songs[0]);
-		})
-		.on('error', error => {
-			console.error(error);
-		});
-	dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
-}
-
-
-client.login(process.env.BOT_TOKEN);
+   
+  
+client.login(config.token);
