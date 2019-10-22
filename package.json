@@ -1,21 +1,13 @@
 {
-  "name": "prueba",
-  "version": "1.0.0",
+  "name": "Test",
+  "description": "Test",
+  "version": "0.0.0",
   "main": "bot.js",
   "scripts": {
-    "start": "node bot.js",
-    "dev": "nodemon bot.js"
+    "start": "node bot.js"
   },
   "dependencies": {
-    "discord.js": "^11.4.2",
-    "request": "2.81.0",
-    "dotenv": "^6.2.0",
-    "ffmpeg": "0.0.4",
-    "ytdl-core": "0.29.5",
-    "ytdl-core-discord": "1.0.3",
-    "opusscript": "0.0.6"
-  },
-  "devDependencies": {
-    "nodemon": "^1.18.9"
+    "discord.js": "^11.5.1",
+    "request": "^2.88.0"
   }
 }
